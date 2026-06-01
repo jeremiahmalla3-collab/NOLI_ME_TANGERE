@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter Detail - Noli Me Tangere</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@0;1&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        .chapter-detail {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            background-color: white;
+        }
+
+        .chapter-header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 30px;
+        }
+
+        .chapter-header h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .chapter-meta {
+            color: var(--accent-color);
+            font-size: 1.2em;
+            font-style: italic;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background-color: var(--light-bg);
+            border-left: 5px solid var(--primary-color);
+            border-radius: 3px;
+        }
+
+        .content-section h2 {
+            color: var(--primary-color);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .media-container {
+            margin: 20px 0;
+        }
+
+        .media-container img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid var(--primary-color);
+            border-radius: 3px;
+            margin-bottom: 15px;
+        }
+
+        .media-player {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .back-button {
+            margin-bottom: 20px;
+        }
+
+        .teacher-resources {
+            background-color: #FFF8DC;
+            padding: 30px;
+            border: 2px dashed var(--secondary-color);
+            border-radius: 3px;
+            margin-top: 40px;
+        }
+
+        .resource-link {
+            display: inline-block;
+            margin: 10px 10px 10px 0;
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: var(--accent-color);
+            text-decoration: none;
+            border-radius: 3px;
+            border: 1px solid var(--primary-color);
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .resource-link:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <h1>Noli Me Tangere</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#chapters">Chapters</a></li>
+                <li><a href="../index.html#login">Account</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Chapter Detail -->
+    <section class="chapter-detail">
+        <div class="back-button">
+            <button class="btn btn-secondary" onclick="history.back()">← Back to Chapters</button>
+        </div>
+
+        <div class="chapter-header">
+            <h1 id="chapterTitle">Chapter 1</h1>
+            <p class="chapter-meta" id="chapterSubtitle">Introductions</p>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="content-section">
+            <h2>📖 Summary</h2>
+            <p id="chapterSummary">
+                Summary content will be displayed here. Teachers can add custom summaries for each chapter.
+            </p>
+        </div>
+
+        <!-- Characters Section -->
+        <div class="content-section">
+            <h2>👥 Characters</h2>
+            <p id="chapterCharacters">
+                Character information and descriptions will be displayed here.
+            </p>
+        </div>
+
+        <!-- Images Section -->
+        <div class="content-section">
+            <h2>🖼️ Illustrations</h2>
+            <div class="media-container">
+                <img id="chapterImage" src="https://via.placeholder.com/800x400?text=Chapter+Image" alt="Chapter Illustration">
+            </div>
+        </div>
+
+        <!-- Audio Section -->
+        <div class="content-section">
+            <h2>🎵 Audio Narration</h2>
+            <audio class="media-player" controls>
+                <source src="" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <p><em>Audio narration for this chapter</em></p>
+        </div>
+
+        <!-- Video Section -->
+        <div class="content-section">
+            <h2>🎬 Video</h2>
+            <div class="media-container">
+                <iframe width="100%" height="400" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- PowerPoint Section -->
+        <div class="content-section">
+            <h2>📊 Presentation</h2>
+            <p>PowerPoint presentation available for teachers and students.</p>
+            <button class="btn btn-primary" onclick="downloadPPT()">Download Presentation</button>
+        </div>
+
+        <!-- Assessment Section -->
+        <div class="content-section">
+            <h2>✏️ Assessment</h2>
+            <p>Test your understanding of this chapter with our interactive quiz.</p>
+            <button class="btn btn-primary" onclick="startAssessment()">Start Quiz</button>
+        </div>
+
+        <!-- Teacher Resources -->
+        <div class="teacher-resources">
+            <h3>📚 Teacher Resources</h3>
+            <p>Custom links generated by your teacher:</p>
+            <div id="teacherLinks"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Noli Me Tangere Educational Platform | Chapter Resource Page</p>
+    </footer>
+
+    <script>
+        // Get chapter ID from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const chapterId = urlParams.get('id') || 1;
+
+        // Sample chapter data
+        const chapterData = {
+            1: {
+                title: "Chapter 1",
+                subtitle: "Introductions",
+                summary: "The novel opens with a gathering of the elite society in Manila. Crisostomo Ibarra, a young Filipino who has just returned from Europe after seven years of study, is being introduced to society. Despite his evident refinement and accomplishments, he is met with prejudice and suspicion from the Spanish friars and some of the wealthy Filipinos.",
+                characters: "Crisostomo Ibarra, Doña Victorina, Padre Dámaso, Padre Salvi, María Clara, Rizal",
+                summary_content: "This chapter establishes the setting and introduces key characters. It shows the colonial mindset and the tension between modernization and tradition."
+            }
+        };
+
+        // Load chapter data
+        document.addEventListener('DOMContentLoaded', function() {
+            const data = chapterData[chapterId] || chapterData[1];
+            
+            document.getElementById('chapterTitle').textContent = data.title;
+            document.getElementById('chapterSubtitle').textContent = data.subtitle;
+            document.getElementById('chapterSummary').textContent = data.summary;
+            document.getElementById('chapterCharacters').textContent = data.characters;
+
+            // Load teacher-generated links
+            loadTeacherLinks();
+        });
+
+        function loadTeacherLinks() {
+            const links = JSON.parse(localStorage.getItem('generatedLinks') || '[]');
+            const chapterLinks = links.filter(link => link.chapter == chapterId);
+            
+            const linksContainer = document.getElementById('teacherLinks');
+            linksContainer.innerHTML = '';
+
+            if (chapterLinks.length === 0) {
+                linksContainer.innerHTML = '<p>No custom links yet.</p>';
+                return;
+            }
+
+            chapterLinks.forEach(link => {
+                const linkEl = document.createElement('a');
+                linkEl.href = link.url;
+                linkEl.className = 'resource-link';
+                linkEl.textContent = `${link.name} (${link.type})`;
+                linkEl.target = '_blank';
+                linksContainer.appendChild(linkEl);
+            });
+        }
+
+        function downloadPPT() {
+            alert('Downloading presentation for ' + document.getElementById('chapterTitle').textContent);
+            // In production, this would download an actual file
+        }
+
+        function startAssessment() {
+            alert('Assessment quiz will open for ' + document.getElementById('chapterTitle').textContent);
+            // In production, this would open an interactive quiz
+        }
+    </script>
+</body>
+</html>
