@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noli Me Tangere - Educational Platform</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@0;1&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <h1>Noli Me Tangere</h1>
+                <p class="subtitle">Educational Platform</p>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#chapters">Chapters</a></li>
+                <li><a href="#login">Login</a></li>
+                <li><a href="#register">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Explore the Classic Novel</h2>
+            <p>A comprehensive educational journey through José Rizal's Noli Me Tangere</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="showModal('loginModal')">Login</button>
+                <button class="btn btn-secondary" onclick="showModal('registerModal')">Register</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginRole">Role:</label>
+                    <select id="loginRole" name="role" required>
+                        <option value="">Select Role</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="student">Student</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Register</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Full Name:</label>
+                    <input type="text" id="registerName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email:</label>
+                    <input type="email" id="registerEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password:</label>
+                    <input type="password" id="registerPassword" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerRole">Role:</label>
+                    <select id="registerRole" name="role" required>
+                        <option value="">Select Role</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="student">Student</option>
+                    </select>
+                </div>
+                <div class="form-group" id="schoolField" style="display:none;">
+                    <label for="registerSchool">School:</label>
+                    <input type="text" id="registerSchool" name="school">
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Chapters Section -->
+    <section id="chapters" class="chapters">
+        <div class="container">
+            <h2>Chapters</h2>
+            <div class="chapters-grid" id="chaptersGrid">
+                <!-- Chapters will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Link Maker Section (for Teachers) -->
+    <section id="linkMaker" class="link-maker" style="display:none;">
+        <div class="container">
+            <h2>Link Maker</h2>
+            <div class="link-maker-form">
+                <div class="form-group">
+                    <label for="chapterSelect">Select Chapter:</label>
+                    <select id="chapterSelect">
+                        <option value="">Choose a chapter...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="linkName">Link Name:</label>
+                    <input type="text" id="linkName" placeholder="e.g., Chapter Summary">
+                </div>
+                <div class="form-group">
+                    <label for="linkType">Link Type:</label>
+                    <select id="linkType">
+                        <option value="summary">Summary</option>
+                        <option value="image">Image</option>
+                        <option value="audio">Audio</option>
+                        <option value="video">Video</option>
+                        <option value="ppt">PowerPoint</option>
+                        <option value="assessment">Assessment</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="linkUrl">URL:</label>
+                    <input type="url" id="linkUrl" placeholder="https://example.com">
+                </div>
+                <button onclick="generateLink()" class="btn btn-primary">Generate Link</button>
+            </div>
+            <div id="generatedLink" class="generated-link" style="display:none;">
+                <h3>Generated Link:</h3>
+                <div class="link-display">
+                    <input type="text" id="linkOutput" readonly>
+                    <button onclick="copyLink()" class="btn btn-secondary">Copy</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Noli Me Tangere Educational Platform | Created by Students</p>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
