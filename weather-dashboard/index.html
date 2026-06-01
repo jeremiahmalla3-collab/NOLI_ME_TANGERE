@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Background -->
+    <div class="bg-gradient"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-cloud-sun"></i> Weather Dashboard</h1>
+                <p>Real-time weather information at your fingertips</p>
+            </div>
+        </header>
+
+        <!-- Search Bar -->
+        <section class="search-section">
+            <div class="search-container">
+                <input 
+                    type="text" 
+                    id="cityInput" 
+                    class="search-input" 
+                    placeholder="Search for a city (e.g., London, New York, Tokyo)"
+                    autocomplete="off"
+                >
+                <button class="btn-search" onclick="searchWeather()">
+                    <i class="fas fa-search"></i> Search
+                </button>
+                <button class="btn-location" onclick="getCurrentLocation()" title="Use my location">
+                    <i class="fas fa-location-dot"></i>
+                </button>
+            </div>
+            <div id="suggestionsList" class="suggestions-list"></div>
+        </section>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+            <div class="spinner"></div>
+            <p>Loading weather data...</p>
+        </div>
+
+        <!-- Main Weather Display -->
+        <main id="mainContent" class="main-content">
+            <!-- Current Weather Card -->
+            <section class="current-weather">
+                <div class="weather-card">
+                    <div class="city-header">
+                        <h2 id="cityName">Select a city</h2>
+                        <p id="dateTime"></p>
+                    </div>
+
+                    <div class="weather-display">
+                        <div class="temperature-section">
+                            <img id="weatherIcon" src="" alt="Weather icon" class="weather-icon">
+                            <div class="temp-info">
+                                <div class="temperature" id="temperature">--°C</div>
+                                <div class="weather-description" id="weatherDesc">No data</div>
+                            </div>
+                        </div>
+
+                        <div class="weather-details-grid">
+                            <div class="detail-item">
+                                <span class="detail-label"><i class="fas fa-droplets"></i> Humidity</span>
+                                <span class="detail-value" id="humidity">--</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label"><i class="fas fa-wind"></i> Wind Speed</span>
+                                <span class="detail-value" id="windSpeed">--</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label"><i class="fas fa-gauge"></i> Pressure</span>
+                                <span class="detail-value" id="pressure">--</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label"><i class="fas fa-eye"></i> Visibility</span>
+                                <span class="detail-value" id="visibility">--</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label"><i class="fas fa-sun"></i> Feels Like</span>
+                                <span class="detail-value" id="feelsLike">--°C</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label"><i class="fas fa-arrow-up"></i> UV Index</span>
+                                <span class="detail-value" id="uvIndex">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hourly Forecast -->
+            <section class="hourly-forecast">
+                <h3><i class="fas fa-clock"></i> Hourly Forecast</h3>
+                <div class="forecast-container" id="hourlyForecast"></div>
+            </section>
+
+            <!-- 5-Day Forecast -->
+            <section class="daily-forecast">
+                <h3><i class="fas fa-calendar"></i> 5-Day Forecast</h3>
+                <div class="forecast-container" id="dailyForecast"></div>
+            </section>
+
+            <!-- Air Quality -->
+            <section class="air-quality">
+                <h3><i class="fas fa-smog"></i> Air Quality</h3>
+                <div class="air-quality-card">
+                    <div class="aqi-display">
+                        <div class="aqi-circle">
+                            <span class="aqi-value" id="aqiValue">--</span>
+                            <span class="aqi-label">AQI</span>
+                        </div>
+                        <div class="aqi-info">
+                            <p class="aqi-status" id="aqiStatus">Loading...</p>
+                            <p class="aqi-description" id="aqiDescription"></p>
+                        </div>
+                    </div>
+                    <div class="aqi-details-grid">
+                        <div class="aqi-detail">
+                            <span class="aqi-detail-label">PM2.5</span>
+                            <span class="aqi-detail-value" id="pm25">--</span>
+                        </div>
+                        <div class="aqi-detail">
+                            <span class="aqi-detail-label">PM10</span>
+                            <span class="aqi-detail-value" id="pm10">--</span>
+                        </div>
+                        <div class="aqi-detail">
+                            <span class="aqi-detail-label">NO₂</span>
+                            <span class="aqi-detail-value" id="no2">--</span>
+                        </div>
+                        <div class="aqi-detail">
+                            <span class="aqi-detail-label">O₃</span>
+                            <span class="aqi-detail-value" id="o3">--</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Searches -->
+            <section class="recent-searches">
+                <h3><i class="fas fa-history"></i> Recent Searches</h3>
+                <div id="recentSearchesList" class="recent-searches-list"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Data provided by <a href="https://openweathermap.org" target="_blank">OpenWeatherMap API</a></p>
+        <p>&copy; 2026 Weather Dashboard | All rights reserved</p>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
